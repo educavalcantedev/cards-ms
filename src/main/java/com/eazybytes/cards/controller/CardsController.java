@@ -26,10 +26,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * @author Eazy Bytes
- */
-
 @Tag(
         name = "CRUD REST APIs for Cards in EazyBank",
         description = "CRUD REST APIs in EazyBank to CREATE, UPDATE, FETCH AND DELETE card details"
@@ -106,9 +102,12 @@ public class CardsController {
             @RequestHeader("eazybank-correlation-id") String correlationId,
             @RequestParam @Pattern(regexp="(^$|[0-9]{11})",message = "Mobile number must be 11 digits") String mobileNumber) {
 
-        logger.debug("eazyBank-correlation-id found: {}", correlationId);
+        logger.debug("[METHOD]-[START] fetchCardDetails for mobileNumber: [{}]", mobileNumber);
 
         CardsDto cardsDto = iCardsService.fetchCard(mobileNumber);
+
+        logger.debug("[METHOD]-[END] fetchCardDetails for mobileNumber: [{}]", mobileNumber);
+
         return ResponseEntity.status(HttpStatus.OK).body(cardsDto);
     }
 
